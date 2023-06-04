@@ -1,0 +1,300 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  """City component of the address."""
+  city: String!
+
+  """State component of the address."""
+  state: State!
+}
+
+"""Address described with city and state."""
+input AddressInput {
+  """City component of the address."""
+  city: String!
+
+  """State component of the address."""
+  state: State!
+}
+
+enum Amenity {
+  BREAKFAST
+  GYM
+  INTERNET
+  LAUNDRY
+  POOL
+}
+
+type Floor {
+  guests: [Guest!]!
+
+  """Hotel the floor is in."""
+  hotel: Hotel!
+
+  """ID of the floor."""
+  id: String!
+
+  """Index of the floor within the Hotel."""
+  index: Int!
+  rooms: [Room!]!
+}
+
+type Guest {
+  """Arrival date of the Guest to the Hotel in Unix Time."""
+  arrivalDate: Int!
+
+  """ID of the Guest."""
+  id: String!
+
+  """Name of the Guest."""
+  name: String!
+
+  """Room the Guest is assigned to."""
+  room: Room!
+}
+
+type Hotel {
+  """The address of the Hotel."""
+  address: Address!
+
+  """The amenities the Hotel provides."""
+  amenities: [Amenity!]!
+
+  """The floors of the Hotel."""
+  floors: [Floor!]
+
+  """The guests of the Hotel."""
+  guests: [Guest!]
+
+  """The ID of the Hotel."""
+  id: String!
+
+  """The name of the Hotel."""
+  name: String!
+
+  """The room styles the Hotel provides."""
+  roomStyles: [Style!]!
+}
+
+type Mutation {
+  addFloor(
+    """ID of the Hotel."""
+    hotelId: ID!
+
+    """Number of rooms to autocreate."""
+    numRooms: Int
+  ): Floor
+  createGuest(
+    """The Guest's name."""
+    name: String!
+
+    """ID of the Room."""
+    roomId: ID!
+  ): Guest
+  createHotel(
+    """Address of the Hotel."""
+    address: AddressInput!
+
+    """Amenities of the Hotel."""
+    amenities: [Amenity!] = []
+
+    """Name of the Hotel."""
+    name: String!
+
+    """Number of floors to autocreate in the Hotel."""
+    numFloors: Int
+
+    """Number of rooms per floor to autocreate in the Hotel."""
+    numRooms: Int
+
+    """Available Room styles of the Hotel."""
+    roomStyles: [Style!] = []
+  ): Hotel
+  createRoom(
+    """ID of the Floor."""
+    floorId: ID!
+
+    """The Room number."""
+    number: Int!
+
+    """The Room style."""
+    style: Style!
+  ): Room
+  removeFloor(
+    """ID of the Hotel."""
+    hotelId: ID!
+  ): String
+  removeGuest(
+    """ID of the specific Guest to remove."""
+    id: ID!
+
+    """ID of the Room."""
+    roomId: ID!
+  ): String
+  removeHotel(
+    """ID of the specific Hotel to remove."""
+    id: ID!
+  ): String
+  removeRoom(
+    """ID of the Floor."""
+    floorId: ID!
+
+    """ID of the specific Room to remove."""
+    id: ID!
+  ): String
+  updateGuest(
+    """ID of the specific Guest to update."""
+    id: ID!
+
+    """The Guest's name."""
+    name: String
+
+    """ID of the Room."""
+    roomId: ID!
+  ): Guest
+  updateHotel(
+    """Address of the Hotel."""
+    address: UpdateAddressInput
+
+    """Amenities of the Hotel."""
+    amenities: [Amenity!]
+
+    """ID of the specific Hotel to update."""
+    id: ID!
+
+    """Name of the Hotel."""
+    name: String
+
+    """Available Room styles of the Hotel."""
+    roomStyles: [Style!]
+  ): Hotel
+  updateRoom(
+    """ID of the Floor."""
+    floorId: ID!
+
+    """ID of the specific Room to update."""
+    id: ID!
+
+    """The Room number."""
+    number: Int
+
+    """The Room style."""
+    style: Style!
+  ): Room
+}
+
+type Query {
+  floor(
+    """ID of the Hotel to retrieve the floor of."""
+    hotelId: ID!
+
+    """ID of the specific Floor to retrieve."""
+    id: ID!
+  ): Floor
+  guest(
+    """ID of the specific Guest to retrieve."""
+    id: ID!
+
+    """ID of the Room to retrieve the guest of."""
+    roomId: ID!
+  ): Guest
+  hotel(
+    """ID of the specific Hotel to retrieve."""
+    id: ID!
+  ): Hotel
+  hotels: [Hotel!]!
+  room(
+    """ID of the Floor to retrieve the room of."""
+    floorId: ID!
+
+    """ID of the specific Room to retrieve."""
+    id: ID!
+  ): Room
+}
+
+type Room {
+  """Floor the Room resides on."""
+  floor: Floor!
+  guests: [Guest!]!
+
+  """ID of the Room."""
+  id: String!
+
+  """The Room number."""
+  number: Int!
+
+  """The style of the Room."""
+  style: Style!
+}
+
+enum State {
+  AK
+  AL
+  AR
+  AZ
+  CA
+  CO
+  CT
+  DE
+  FL
+  GA
+  HI
+  IA
+  ID
+  IL
+  IN
+  KS
+  KY
+  LA
+  MA
+  MD
+  ME
+  MI
+  MN
+  MO
+  MS
+  MT
+  NC
+  ND
+  NE
+  NH
+  NJ
+  NM
+  NV
+  NY
+  OH
+  OK
+  OR
+  PA
+  RI
+  SC
+  SD
+  TN
+  TX
+  UT
+  VA
+  VT
+  WA
+  WI
+  WV
+  WY
+}
+
+enum Style {
+  DOUBLE
+  KING
+  QUEEN
+  SINGLE
+  SUITE
+}
+
+"""Address described with city and state."""
+input UpdateAddressInput {
+  """City component of the address."""
+  city: String
+
+  """State component of the address."""
+  state: State
+}
